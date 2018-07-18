@@ -6,11 +6,64 @@
 <script src="lua_compressed.js"></script>
 <script src="dart_compressed.js"></script>
 <script src="msg/js/nl.js"></script>
+<script>
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+</script>
 <div id="wrapper">
   <div id="blocklyDiv" style="height: 100%; width: 89%; display: inline-block;"></div>
   <textarea id="textarea" style="height: 100%; width: 10%; display: inline-block;"></textarea>
 </div>
 <input id="trautoenable" type="checkbox" text="gebruik auto-invoer (instabiel en niet aanbevolen)">gebruik auto-invoer (instabiel en niet aanbevolen)</input>
+<div id=exportwrapper style="border: 5px solid blue; display: inline-block;">
+  projectnaam: <input id="projectname" type="textfield">
+  <script>
+  function save() {
+    var xml = Blockly.Xml.workspaceToDom(workspace);
+    var xml_text = Blockly.Xml.domToText(xml);
+    download(document.getElementById("projectname").value+".xml",xml_text)
+  }
+  </script>
+  <button id="export" text="exporteer werkruimte (en sla op)" onClick="save()">exporteer werkruimte (en sla op)</button>
+</div>
+<div id="importwrapper" style="border: 5px solid red; display: inline-block;">
+  <input id="fileimport" type="file" accept="text/xml" onchange='onChooseFile(event, onFileLoad.bind(this, "contents"))'>
+  <script>
+  function load(xml_text) {
+    var xml = Blockly.Xml.textToDom(xml_text);
+    Blockly.Xml.domToWorkspace(xml, workspace);
+  }
+  function onFileLoad(elementId, event) {
+    load(event.target.result);
+  }
+
+  function onChooseFile(event, onLoadFileHandler) {
+    if (typeof window.FileReader !== 'function')
+        throw ("The file API isn't supported on this browser.");
+    let input = event.target;
+    if (!input)
+        throw ("The browser does not properly implement the event object");
+    if (!input.files)
+        throw ("This browser does not support the `files` property of the file input.");
+    if (!input.files[0])
+        return undefined;
+    let file = input.files[0];
+    let fr = new FileReader();
+    fr.onload = onLoadFileHandler;
+    fr.readAsText(file);
+  }
+  </script>
+</div>    
 <iframe id="trinket" src="trinket/trinket.html" style="height: 100%; width: 100%;"></iframe>
 <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
   <category name="Logic" colour="#5C81A6">                             ;
