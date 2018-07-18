@@ -66,7 +66,7 @@ function download(filename, text) {
 </div>    
 <iframe id="trinket" src="trinket/trinket.html" style="height: 100%; width: 100%;"></iframe>
 <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
-  <category name="Logic" colour="#5C81A6">                             ;
+  <category name="Logic" colour="#5C81A6">
     <block type="controls_if"></block>
     <block type="logic_compare">
       <field name="OP">EQ</field>
@@ -93,7 +93,7 @@ function download(filename, text) {
       <field name="MODE">WHILE</field>
     </block>
     <block type="controls_for">
-      <field name="VAR" id=".cF63Ft[AnNj)7x2/@fi" variabletype="">i</field>
+      <field name="VAR" id="g8A;Z/=`1pidE)O;z*1c" variabletype="">i</field>
       <value name="FROM">
         <shadow type="math_number">
           <field name="NUM">1</field>
@@ -111,7 +111,7 @@ function download(filename, text) {
       </value>
     </block>
     <block type="controls_forEach">
-      <field name="VAR" id="s[iQVcC%`-wFZXkOV9bO" variabletype="">j</field>
+      <field name="VAR" id="BBHdoj1AV#{k#rqW`G.i" variabletype="">j</field>
     </block>
     <block type="controls_flow_statements">
       <field name="FLOW">BREAK</field>
@@ -225,7 +225,7 @@ function download(filename, text) {
       <mutation items="2"></mutation>
     </block>
     <block type="text_append">
-      <field name="VAR" id="h{ST00oxRDO,=QDNx=iH" variabletype="">item</field>
+      <field name="VAR" id="JulSagHmM~v#LB*/F]]Z" variabletype="">item</field>
       <value name="TEXT">
         <shadow type="text">
           <field name="TEXT"></field>
@@ -250,7 +250,7 @@ function download(filename, text) {
       <field name="END">FIRST</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="2Whz3rZWCJqnBjUqd4)}" variabletype="">text</field>
+          <field name="VAR" id="Rc{{+GATLh`S^DOXZ@)0" variabletype="">text</field>
         </block>
       </value>
       <value name="FIND">
@@ -264,7 +264,7 @@ function download(filename, text) {
       <field name="WHERE">FROM_START</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="2Whz3rZWCJqnBjUqd4)}" variabletype="">text</field>
+          <field name="VAR" id="Rc{{+GATLh`S^DOXZ@)0" variabletype="">text</field>
         </block>
       </value>
     </block>
@@ -274,7 +274,7 @@ function download(filename, text) {
       <field name="WHERE2">FROM_START</field>
       <value name="STRING">
         <block type="variables_get">
-          <field name="VAR" id="2Whz3rZWCJqnBjUqd4)}" variabletype="">text</field>
+          <field name="VAR" id="Rc{{+GATLh`S^DOXZ@)0" variabletype="">text</field>
         </block>
       </value>
     </block>
@@ -331,7 +331,7 @@ function download(filename, text) {
       <field name="END">FIRST</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="Zc}w?XtBO~gnrntaF1=C" variabletype="">list</field>
+          <field name="VAR" id="aercnECgbB~$P{N:61hG" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -341,7 +341,7 @@ function download(filename, text) {
       <field name="WHERE">FROM_START</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="Zc}w?XtBO~gnrntaF1=C" variabletype="">list</field>
+          <field name="VAR" id="aercnECgbB~$P{N:61hG" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -351,7 +351,7 @@ function download(filename, text) {
       <field name="WHERE">FROM_START</field>
       <value name="LIST">
         <block type="variables_get">
-          <field name="VAR" id="Zc}w?XtBO~gnrntaF1=C" variabletype="">list</field>
+          <field name="VAR" id="aercnECgbB~$P{N:61hG" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -361,7 +361,7 @@ function download(filename, text) {
       <field name="WHERE2">FROM_START</field>
       <value name="LIST">
         <block type="variables_get">
-          <field name="VAR" id="Zc}w?XtBO~gnrntaF1=C" variabletype="">list</field>
+          <field name="VAR" id="aercnECgbB~$P{N:61hG" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -422,7 +422,127 @@ function download(filename, text) {
   <sep></sep>
   <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
   <category name="Functions" colour="#9A5CA6" custom="PROCEDURE"></category>
+  <sep></sep>
+  <category name="Data conversion" colour="#6d5ba5">
+    <block type="exec">
+      <value name="value">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="dataconverter">
+      <field name="to">float</field>
+    </block>
+    <block type="comparelist"></block>
+  </category>
 </xml>
+<script>
+
+
+
+
+
+
+
+Blockly.Python['exec'] = function(block) {
+  var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'exec('+value_value+')\n';
+  return code;
+};
+
+Blockly.Blocks['exec'] = {
+  init: function() {
+    this.appendValueInput("value")
+        .setCheck("String")
+        .appendField("Execute");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("Execute given python code.");
+ this.setHelpUrl("");
+  }
+};
+
+
+
+
+
+
+
+
+Blockly.Python['dataconverter'] = function(block) {
+  var dropdown_to = block.getFieldValue('to');
+  var value_input = Blockly.Python.valueToCode(block, 'input', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = dropdown_to+'('+value_input+')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['dataconverter'] = {
+  init: function() {
+    this.appendValueInput("input")
+        .setCheck(null)
+        .appendField("omzetten naar")
+        .appendField(new Blockly.FieldDropdown([["getal","float"], ["tekst","str"], ["lijst","list"]]), "to");
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("Zet gegeven data om in een getal, tekst of een lijst.");
+ this.setHelpUrl("");
+  }
+};
+
+
+
+
+
+
+
+
+
+
+Blockly.Python['comparelist'] = function(block) {
+  var value_list1 = Blockly.Python.valueToCode(block, 'list1', Blockly.Python.ORDER_ATOMIC);
+  var value_list2 = Blockly.Python.valueToCode(block, 'list2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '[exec("re=[]"),exec("for i in '+value_list1+': exec(\'if '+value_list2+'.__contains__(i): re=re+[i]\')"),re][2]';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['comparelist'] = {
+  init: function() {
+    this.appendValueInput("list1")
+        .setCheck("Array")
+        .appendField("vergelijk lijst");
+    this.appendValueInput("list2")
+        .setCheck("Array")
+        .appendField("met");
+    this.setInputsInline(true);
+    this.setOutput(true, "Array");
+    this.setColour(230);
+ this.setTooltip("Checkt lijsten voor overeenkomende items");
+ this.setHelpUrl("");
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 <!--<xml id="toolbox" style="display: none">
   <block type="controls_if"></block>
   <block type="controls_repeat_ext"></block>
