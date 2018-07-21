@@ -18,7 +18,7 @@ function download(filename, text) {
   element.click();
 
   document.body.removeChild(element);
-}
+  }
 </script>
 <div id="wrapper">
   <div id="blocklyDiv" style="height: 100%; width: 89%; display: inline-block;"></div>
@@ -35,6 +35,7 @@ function download(filename, text) {
   }
   </script>
   <button id="export" text="exporteer werkruimte (en sla op)" onClick="save()">exporteer werkruimte (en sla op)</button>
+  <button id="exportpy" onClick='download(document.getElementById("projectname").value+".py",document.getElementById("textarea").value)'>download python code</button>
 </div>
 <div id="importwrapper" style="border: 5px solid red; display: inline-block;">
   <input id="fileimport" type="file" accept="text/xml" onchange='onChooseFile(event, onFileLoad.bind(this, "contents"))'>
@@ -63,6 +64,19 @@ function download(filename, text) {
     fr.readAsText(file);
   }
   </script>
+</div>
+<div id="clearbackpackwrapper" style="border: 5px solid yellow; display: inline-block;">
+  <script>
+  function deletebackpackpopup() {
+    var confirmmessage = confirm("Weet je zeker dat je de backpack wilt legen? Dit kan niet ongedaan gemaakt worden.\nWil je dit echt doen?");
+    if (confirmmessage == true) {
+      localStorage.removeItem("blockypythonbackpack");
+      toolbox.children.Backpack.innerHTML=""
+      workspace.updateToolbox(toolbox);
+    }
+  }
+  </script>
+  <button Onclick="deletebackpackpopup()">Backpack legen</button>
 </div>    
 <iframe id="trinket" src="trinket/trinket.html" style="height: 100%; width: 100%;"></iframe>
 <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
@@ -80,6 +94,9 @@ function download(filename, text) {
     </block>
     <block type="logic_null"></block>
     <block type="logic_ternary"></block>
+    <block type="tryexcept"></block>
+    <block type="tryexceptc"></block>
+    <block type="pass"></block>
   </category>
   <category name="Loops" colour="#5CA65C">
     <block type="controls_repeat_ext">
@@ -93,7 +110,7 @@ function download(filename, text) {
       <field name="MODE">WHILE</field>
     </block>
     <block type="controls_for">
-      <field name="VAR" id="g8A;Z/=`1pidE)O;z*1c" variabletype="">i</field>
+      <field name="VAR" id="h~.WVUwUmerSDf5}P*rJ" variabletype="">i</field>
       <value name="FROM">
         <shadow type="math_number">
           <field name="NUM">1</field>
@@ -111,7 +128,7 @@ function download(filename, text) {
       </value>
     </block>
     <block type="controls_forEach">
-      <field name="VAR" id="BBHdoj1AV#{k#rqW`G.i" variabletype="">j</field>
+      <field name="VAR" id="dpM=?ISpuL*H${B]5ps*" variabletype="">j</field>
     </block>
     <block type="controls_flow_statements">
       <field name="FLOW">BREAK</field>
@@ -225,7 +242,7 @@ function download(filename, text) {
       <mutation items="2"></mutation>
     </block>
     <block type="text_append">
-      <field name="VAR" id="JulSagHmM~v#LB*/F]]Z" variabletype="">item</field>
+      <field name="VAR" id="[d[|wQ^[u8xC)p-p/Cwz" variabletype="">item</field>
       <value name="TEXT">
         <shadow type="text">
           <field name="TEXT"></field>
@@ -250,7 +267,7 @@ function download(filename, text) {
       <field name="END">FIRST</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="Rc{{+GATLh`S^DOXZ@)0" variabletype="">text</field>
+          <field name="VAR" id="g6wZ.oX~cox~zg^AYw$y" variabletype="">text</field>
         </block>
       </value>
       <value name="FIND">
@@ -264,7 +281,7 @@ function download(filename, text) {
       <field name="WHERE">FROM_START</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="Rc{{+GATLh`S^DOXZ@)0" variabletype="">text</field>
+          <field name="VAR" id="g6wZ.oX~cox~zg^AYw$y" variabletype="">text</field>
         </block>
       </value>
     </block>
@@ -274,7 +291,7 @@ function download(filename, text) {
       <field name="WHERE2">FROM_START</field>
       <value name="STRING">
         <block type="variables_get">
-          <field name="VAR" id="Rc{{+GATLh`S^DOXZ@)0" variabletype="">text</field>
+          <field name="VAR" id="g6wZ.oX~cox~zg^AYw$y" variabletype="">text</field>
         </block>
       </value>
     </block>
@@ -311,7 +328,7 @@ function download(filename, text) {
       </value>
     </block>
   </category>
-  <category name="Lists" colour="#745CA6">
+  <category name="Lists & dicts" colour="#745CA6">
     <block type="lists_create_with">
       <mutation items="0"></mutation>
     </block>
@@ -331,7 +348,7 @@ function download(filename, text) {
       <field name="END">FIRST</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="aercnECgbB~$P{N:61hG" variabletype="">list</field>
+          <field name="VAR" id="Hb^v:N$I;pj=!^PS`THH" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -341,7 +358,7 @@ function download(filename, text) {
       <field name="WHERE">FROM_START</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="aercnECgbB~$P{N:61hG" variabletype="">list</field>
+          <field name="VAR" id="Hb^v:N$I;pj=!^PS`THH" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -351,7 +368,7 @@ function download(filename, text) {
       <field name="WHERE">FROM_START</field>
       <value name="LIST">
         <block type="variables_get">
-          <field name="VAR" id="aercnECgbB~$P{N:61hG" variabletype="">list</field>
+          <field name="VAR" id="Hb^v:N$I;pj=!^PS`THH" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -361,7 +378,7 @@ function download(filename, text) {
       <field name="WHERE2">FROM_START</field>
       <value name="LIST">
         <block type="variables_get">
-          <field name="VAR" id="aercnECgbB~$P{N:61hG" variabletype="">list</field>
+          <field name="VAR" id="Hb^v:N$I;pj=!^PS`THH" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -378,6 +395,44 @@ function download(filename, text) {
       <field name="TYPE">NUMERIC</field>
       <field name="DIRECTION">1</field>
     </block>
+    <block type="comparelist"></block>
+    <block type="createdict">
+      <value name="in1">
+        <block type="lists_create_with">
+          <mutation items="2"></mutation>
+          <value name="ADD0">
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
+          </value>
+          <value name="ADD1">
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
+          </value>
+        </block>
+      </value>
+      <value name="in2">
+        <block type="lists_create_with">
+          <mutation items="2"></mutation>
+          <value name="ADD0">
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
+          </value>
+          <value name="ADD1">
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
+          </value>
+        </block>
+      </value>
+    </block>
+    <block type="keysvaluesdict">
+      <field name="NAME">keys</field>
+    </block>
+    <block type="getfromdictwithkey"></block>
+    <block type="updatedict"></block>
   </category>
   <category name="Colour" colour="#A6745C">
     <block type="colour_picker">
@@ -436,6 +491,65 @@ function download(filename, text) {
     </block>
     <block type="comparelist"></block>
   </category>
+  <category name="Files" colour="#5ba5a5">
+    <block type="filemanagement">
+      <field name="NAME" id="w=jodFFdx:w[YVu:]@@Y" variabletype="">item</field>
+      <field name="action">x</field>
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="writefile">
+      <value name="text">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+      <value name="file">
+        <block type="variables_get">
+          <field name="VAR" id="w=jodFFdx:w[YVu:]@@Y" variabletype="">item</field>
+        </block>
+      </value>
+    </block>
+    <block type="readfile">
+      <value name="file">
+        <block type="variables_get">
+          <field name="VAR" id="w=jodFFdx:w[YVu:]@@Y" variabletype="">item</field>
+        </block>
+      </value>
+    </block>
+    <block type="save_close">
+      <value name="file">
+        <block type="variables_get">
+          <field name="VAR" id="w=jodFFdx:w[YVu:]@@Y" variabletype="">item</field>
+        </block>
+      </value>
+    </block>
+  </category>
+  <category name="Modules">
+    <block type="import">
+      <field name="module">os</field>
+    </block>
+    <category name="os">
+      <block type="os_system">
+        <value name="in">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="os_mkdir">
+        <value name="dirname">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+  </category>
+  <category name="Backpack"></category>
 </xml>
 <script>
 
@@ -539,6 +653,350 @@ Blockly.Blocks['comparelist'] = {
 
 
 
+Blockly.Blocks['import'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("importeer module")
+        .appendField(new Blockly.FieldDropdown([["os","os"], ["sys","sys"], ["numpy","numpy"]]), "module");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("Import given module");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['os_system'] = {
+  init: function() {
+    this.appendValueInput("in")
+        .setCheck("String")
+        .appendField("voer");
+    this.appendDummyInput()
+        .appendField("uit in shell");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("Voer gegeven invoer uit in shell.");
+ this.setHelpUrl("https://docs.python.org/3/library/os.html#os.system");
+  }
+};
+
+Blockly.Blocks['filemanagement'] = {
+  init: function() {
+    this.appendValueInput("filename")
+        .setCheck("String")
+        .appendField("stel")
+        .appendField(new Blockly.FieldVariable("item"), "NAME")
+        .appendField("in op bestand")
+        .appendField(new Blockly.FieldDropdown([["maken en openen voor scrijven","x"], ["openen voor lezen","r"], ["openen voor schrijven","w"]]), "action")
+        .appendField("met naam");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("open/maak bestand");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['os_mkdir'] = {
+  init: function() {
+    this.appendValueInput("dirname")
+        .setCheck("String")
+        .appendField("maak map");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("maak map met gegeven naam");
+ this.setHelpUrl("https://docs.python.org/3/library/os.html#os.mkdir");
+  }
+};
+
+
+
+Blockly.Python['import'] = function(block) {
+  var dropdown_module = block.getFieldValue('module');
+  // TODO: Assemble Python into code variable.
+  var code = 'import '+dropdown_module+'\n';
+  return code;
+};
+
+Blockly.Python['os_system'] = function(block) {
+  var value_in = Blockly.Python.valueToCode(block, 'in', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'os.system('+value_in+')\n';
+  return code;
+};
+
+Blockly.Python['filemanagement'] = function(block) {
+  var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var dropdown_action = block.getFieldValue('action');
+  var value_filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'try: '+variable_name+'=open('+value_filename+',"'+dropdown_action+'")\nexcept: '+variable_name+'=open('+value_filename+',"w" if "'+dropdown_action+'"=="x" else "'+dropdown_action+'")\n';
+  return code;
+};
+
+Blockly.Python['os_mkdir'] = function(block) {
+  var value_dirname = Blockly.Python.valueToCode(block, 'dirname', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'try: os.mkdir('+value_dirname+')\nexcept: pass\n';
+  return code;
+};
+
+
+
+
+
+
+Blockly.Blocks['save_close'] = {
+  init: function() {
+    this.appendValueInput("file")
+        .setCheck("_io.TextIOWrapper")
+        .appendField("Sla op en sluit bestand");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("Zal het bestand opslaan en afsluiten..");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['writefile'] = {
+  init: function() {
+    this.appendValueInput("text")
+        .setCheck("String")
+        .appendField("Schrijf");
+    this.appendValueInput("file")
+        .setCheck("_io.TextIOWrapper")
+        .appendField("naar bestand");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("Schrijft data naar bestand. Gebruik het \"sla op en sluit bestand\"-blok om op te slaan.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['readfile'] = {
+  init: function() {
+    this.appendValueInput("file")
+        .setCheck("_io.TextIOWrapper")
+        .appendField("Lees bestand");
+    this.setInputsInline(true);
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("Verkrijgt de inhoud van het gegeven bestand.");
+ this.setHelpUrl("");
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+Blockly.Python['save_close'] = function(block) {
+  var value_file = Blockly.Python.valueToCode(block, 'file', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_file+'.close()\n';
+  return code;
+};
+
+Blockly.Python['writefile'] = function(block) {
+  var value_text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+  var value_file = Blockly.Python.valueToCode(block, 'file', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_file+'.write('+value_text+')\n';
+  return code;
+};
+
+Blockly.Python['readfile'] = function(block) {
+  var value_file = Blockly.Python.valueToCode(block, 'file', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_file+'.read()';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+
+
+
+Blockly.Python['createdict'] = function(block) {
+  var value_in1 = Blockly.Python.valueToCode(block, 'in1', Blockly.Python.ORDER_ATOMIC);
+  var value_in2 = Blockly.Python.valueToCode(block, 'in2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '[exec("c=[]"),exec("""for i in range (len('+value_in1+')): exec(\'\'\'try: c=c+[['+value_in1+'[i],'+value_in2+'[i]]]\nexcept: pass\'\'\')"""),dict(c)][2]';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+Blockly.Blocks['createdict'] = {
+  init: function() {
+    this.appendValueInput("in1")
+        .setCheck("Array")
+        .appendField("maak dictionary      sleutelwoorden:");
+    this.appendValueInput("in2")
+        .setCheck("Array")
+        .appendField("waarden:");
+    this.setInputsInline(true);
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("Maakt een dictionary met de gegeven sleutelwoorden en waarden.");
+ this.setHelpUrl("https://docs.python.org/3/library/stdtypes.html#dict");
+  }
+};
+
+Blockly.Blocks['keysvaluesdict'] = {
+  init: function() {
+    this.appendValueInput("dict")
+        .setCheck(null)
+        .appendField("verkrijg alle")
+        .appendField(new Blockly.FieldDropdown([["sleutelwoorden","keys"], ["waarden","values"]]), "NAME")
+        .appendField("van dictionary");
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+Blockly.Python['keysvaluesdict'] = function(block) {
+  var dropdown_name = block.getFieldValue('NAME');
+  var value_dict = Blockly.Python.valueToCode(block, 'dict', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'list('+value_dict+'.'+dropdown_name+'())';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['getfromdictwithkey'] = {
+  init: function() {
+    this.appendValueInput("dict")
+        .setCheck(null)
+        .appendField("van dictionary");
+    this.appendValueInput("key")
+        .setCheck(null)
+        .appendField("verkrijg waarde van sleutelwoord");
+    this.setInputsInline(true);
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+Blockly.Python['getfromdictwithkey'] = function(block) {
+  var value_dict = Blockly.Python.valueToCode(block, 'dict', Blockly.Python.ORDER_ATOMIC);
+  var value_key = Blockly.Python.valueToCode(block, 'key', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_dict+'.get('+value_key+')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+
+Blockly.Blocks['updatedict'] = {
+  init: function() {
+    this.appendValueInput("update")
+        .setCheck(null)
+        .appendField("werk dictionary")
+        .appendField(new Blockly.FieldVariable("item"), "name")
+        .appendField("bij met");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['updatedict'] = function(block) {
+  var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('name'), Blockly.Variables.NAME_TYPE);
+  var value_update = Blockly.Python.valueToCode(block, 'update', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = variable_name+'.update('+value_update+')\n';
+  return code;
+};
+
+
+Blockly.Blocks['tryexcept'] = {
+  init: function() {
+    this.appendStatementInput("try")
+        .setCheck(null)
+        .appendField("probeer:");
+    this.appendStatementInput("except")
+        .setCheck(null)
+        .appendField("wanneer mislukt:");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(210);
+ this.setTooltip("wanneer een error komt tijdens het uitvoeren van de blokken in \"probeer\", zal het de fout opvangen en de alternatieve code in \"wanneer mislukt\" uitvoeren.");
+ this.setHelpUrl("https://docs.python.org/3/tutorial/errors.html#handling-exceptions");
+  }
+};
+
+Blockly.Blocks['tryexceptc'] = {
+  init: function() {
+    this.appendStatementInput("try")
+        .setCheck(null)
+        .appendField("probeer:");
+    this.appendStatementInput("except")
+        .setCheck(null)
+        .appendField("wanneer mislukt met fout")
+        .appendField(new Blockly.FieldTextInput("KeyboardInterrupt"), "error")
+        .appendField(":");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(210);
+ this.setTooltip("wanneer een error komt tijdens het uitvoeren van de blokken in \"probeer\", zal het de fout opvangen en de alternatieve code in \"wanneer mislukt\" uitvoeren.");
+ this.setHelpUrl("https://docs.python.org/3/tutorial/errors.html#handling-exceptions");
+  }
+};
+
+Blockly.Python['tryexcept'] = function(block) {
+  var statements_try = Blockly.Python.statementToCode(block, 'try');
+  var statements_except = Blockly.Python.statementToCode(block, 'except');
+  // TODO: Assemble Python into code variable.
+  var code = 'try:\n'+statements_try+'\nexcept:\n'+statements_except+'\n';
+  return code;
+};
+
+Blockly.Python['tryexceptc'] = function(block) {
+  var statements_try = Blockly.Python.statementToCode(block, 'try');
+  var text_error = block.getFieldValue('error');
+  var statements_except = Blockly.Python.statementToCode(block, 'except');
+  // TODO: Assemble Python into code variable.
+  var code = 'try:\n'+statements_try+'\nexcept '+text_error+':\n'+statements_except+'\n';
+  return code;
+};
+
+Blockly.Blocks['pass'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("doe niets");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(210);
+ this.setTooltip("doet niets. gebruik als placeholder in het \"probeer wanneer mislukt\"-blok.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['pass'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'pass\n';
+  return code;
+};
+
+
+
+
+
 
 
 
@@ -554,9 +1012,24 @@ Blockly.Blocks['comparelist'] = {
 </xml>-->
 <script>
   var workspace = Blockly.inject('blocklyDiv',
-      {toolbox: document.getElementById('toolbox'), trashcan: true});
+      {toolbox: document.getElementById('toolbox'),
+      zoom:
+         {controls: true,
+          wheel: true,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2}, trashcan: true});
 </script>
 <script>
+  if (typeof(Storage) != "undefined") {
+      if (localStorage.getItem("blockypythonbackpack")!=null) {
+          toolbox.children.Backpack.innerHTML=localStorage.getItem("blockypythonbackpack")
+          workspace.updateToolbox(toolbox)
+      }
+  } else {
+      alert("Woah! het ziet er naar uit dat jouw browser geen web storage ondersteunt! update je browser alsjeblieft naar:\nFirefox: 3.5+\nInternet explorer: 8.0+\nGoogle Chrome: 4.0+\nSafari: 4.0+\nOpera: 11.5+\n\nAnders zul je de Backpack-functie niet volledig kunnen gebruiken.")
+  }
   function myUpdateFunction(event) {
     var code = Blockly.Python.workspaceToCode(workspace);
     document.getElementById('textarea').value = code;
@@ -564,6 +1037,14 @@ Blockly.Blocks['comparelist'] = {
       document.getElementById("trinket").contentWindow.document.getElementsByClassName("ace_text-input")[0].value = code
     };
   }
-  workspace.addChangeListener(myUpdateFunction);
+  function onDelete(event) {
+    if (event.type == Blockly.Events.BLOCK_DELETE && workspace.toolbox_.lastCategory_.html_.privateDoNotAccessOrElseSafeHtmlWrappedValue_=="Backpack") {
+      toolbox.children.Backpack.appendChild(event.oldXml)
+      workspace.updateToolbox(toolbox)
+      localStorage.setItem("blockypythonbackpack", toolbox.children.Backpack.innerHTML);
+    }
+  }
+workspace.addChangeListener(myUpdateFunction);
+workspace.addChangeListener(onDelete);
   
 </script>
