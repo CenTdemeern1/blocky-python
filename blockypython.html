@@ -490,6 +490,7 @@ function download(filename, text) {
       <field name="to">float</field>
     </block>
     <block type="comparelist"></block>
+    <block type="converter1"></block>
   </category>
   <category name="Files" colour="#5ba5a5">
     <block type="filemanagement">
@@ -548,7 +549,78 @@ function download(filename, text) {
         </value>
       </block>
     </category>
+    <category name="sys">
+      <block type="getoperatingsystem"></block>
+      <block type="winver"></block>
+    </category>
   </category>
+  <category name="Session" colour="#BFBF40">
+    <block type="getlocal"></block>
+    <block type="restorelocal"></block>
+  </category>
+  <category name="Webpages" colour="#a55b5b">
+    <block type="htmlwrapper"></block>
+    <block type="basichtmlblock">
+      <field name="type">a</field>
+      <value name="code">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="html_p">
+      <value name="code">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+      <value name="id">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="html_a">
+      <value name="link">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+      <value name="code">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+      <value name="id">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <category name="Javascript" colour="#a55b5b">
+      <block type="html_js"></block>
+      <block type="javascriptfunctiongroup"></block>
+      <block type="window_onload"></block>
+    </category>
+    <block type="rawhtml">
+      <value name="NAME">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="html_div">
+      <value name="id">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="httphost">
+     <field name="port">8000</field>
+    </block>
+  </category>
+  <sep></sep>
   <category name="Backpack"></category>
 </xml>
 <script>
@@ -563,6 +635,13 @@ Blockly.Python['exec'] = function(block) {
   var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
   var code = 'exec('+value_value+')\n';
+  return code;
+};
+
+Blockly.JavaScript['exec'] = function(block) {
+  var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = '\'\'\'+'+value_value+'+\'\'\'\n';
   return code;
 };
 
@@ -992,6 +1071,341 @@ Blockly.Python['pass'] = function(block) {
   var code = 'pass\n';
   return code;
 };
+
+Blockly.Blocks['getlocal'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("verkrijg huidige staat van sessie");
+    this.setOutput(true, "state");
+    this.setColour(60);
+ this.setTooltip("Verkrijgt de huidige staat ven de sessie. kan gebruikt worden om later mee de huidige staat terug te zetten.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['restorelocal'] = {
+  init: function() {
+    this.appendValueInput("in")
+        .setCheck("state")
+        .appendField("sessie terugzetten naar staat");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(60);
+ this.setTooltip("Zet sessie terug naar gegeven staat.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['getoperatingsystem'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("verkrijg besturingssysteem waarvoor de huidige versie van python bedield is");
+    this.setOutput(true, "String");
+    this.setColour(230);
+ this.setTooltip("zie help url https://docs.python.org/3/library/sys.html#sys.platform");
+ this.setHelpUrl("https://docs.python.org/3/library/sys.html#sys.platform");
+  }
+};
+
+Blockly.Blocks['winver'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("verkrijg python-voor-Windows-versie");
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("zie help url https://docs.python.org/3/library/sys.html#sys.winver");
+ this.setHelpUrl("https://docs.python.org/3/library/sys.html#sys.winver");
+  }
+};
+
+Blockly.Python['getlocal'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'locals().copy()';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['restorelocal'] = function(block) {
+  var value_in = Blockly.Python.valueToCode(block, 'in', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'updatetemp='+value_in+'\nfor i in locals().copy(): exec(\'if not (i=="updatetemp" or i=="i"): locals().pop(i)\')\nlocals().update(updatetemp)\n';
+  return code;
+};
+
+Blockly.Python['getoperatingsystem'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'sys.platform';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['winver'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'sys.winver';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+
+
+Blockly.Blocks['converter1'] = {
+  init: function() {
+    this.appendStatementInput("NAME")
+        .setCheck(null);
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['converter1'] = function(block) {
+  var statements_name = Blockly.Python.statementToCode(block, 'NAME');
+  // TODO: Assemble Python into code variable.
+  var code = statements_name;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['htmlwrapper'] = {
+  init: function() {
+    this.appendStatementInput("NAME")
+        .setCheck("html")
+        .appendField("html code");
+    this.setOutput(true, "htmlouter");
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['basichtmlblock'] = {
+  init: function() {
+    this.appendValueInput("code")
+        .setCheck(null)
+        .appendField(new Blockly.FieldDropdown([["tekst","a"], ["titel","h1"], ["knop","button"]]), "type");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, "html");
+    this.setNextStatement(true, "html");
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['html_p'] = {
+  init: function() {
+    this.appendValueInput("code")
+        .setCheck(null)
+        .appendField("tekst");
+    this.appendValueInput("id")
+        .setCheck(null)
+        .appendField("met id");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, "html");
+    this.setNextStatement(true, "html");
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['html_a'] = {
+  init: function() {
+    this.appendValueInput("link")
+        .setCheck(null)
+        .appendField("tekst");
+    this.appendValueInput("code")
+        .setCheck(null)
+        .appendField("met link naar");
+    this.appendValueInput("id")
+        .setCheck(null)
+        .appendField("met id");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, "html");
+    this.setNextStatement(true, "html");
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['htmlwrapper'] = function(block) {
+  var statements_name = Blockly.Python.statementToCode(block, 'NAME');
+  // TODO: Assemble Python into code variable.
+  var code = '\'\'\'\n<html>'+statements_name+'</html>\n\'\'\'';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['basichtmlblock'] = function(block) {
+  var dropdown_type = block.getFieldValue('type');
+  var value_code = Blockly.Python.valueToCode(block, 'code', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '<'+dropdown_type+'>\'\'\'+'+value_code+'+\'\'\'</'+dropdown_type+'>\n';
+  return code;
+};
+
+Blockly.Python['html_p'] = function(block) {
+  var value_code = Blockly.Python.valueToCode(block, 'code', Blockly.Python.ORDER_ATOMIC);
+  var value_id = Blockly.Python.valueToCode(block, 'id', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '<p id="\'\'\'+'+value_id+'+\'\'\'">\'\'\'+'+value_code+'+\'\'\'</p>\n';
+  return code;
+};
+
+Blockly.Python['html_a'] = function(block) {
+  var value_link = Blockly.Python.valueToCode(block, 'link', Blockly.Python.ORDER_ATOMIC);
+  var value_code = Blockly.Python.valueToCode(block, 'code', Blockly.Python.ORDER_ATOMIC);
+  var value_id = Blockly.Python.valueToCode(block, 'id', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '<a id="\'\'\'+'+value_id+'+\'\'\'" href="\'\'\'+'+value_code+'+\'\'\'">\'\'\'+'+value_link+'+\'\'\'</a>\n';
+  return code;
+};
+
+Blockly.Blocks['html_js'] = {
+  init: function() {
+    this.appendStatementInput("NAME")
+        .setCheck(null)
+        .appendField("javascript code");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, "html");
+    this.setNextStatement(true, "html");
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['html_js'] = function(block) {
+  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
+  // TODO: Assemble Python into code variable.
+  var code = '<script>\n'+statements_name+'<\/script>\n';
+  return code;
+};
+
+Blockly.Blocks['rawhtml'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("html code");
+    this.setPreviousStatement(true, "html");
+    this.setNextStatement(true, "html");
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['rawhtml'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '\'\'\'+'+value_name+'+\'\'\'\n';
+  return code;
+};
+
+Blockly.Blocks['httphost'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(["html", "htmlouter"])
+        .appendField("website maken op poort")
+        .appendField(new Blockly.FieldNumber(8000, 1, 65535, 1), "port")
+        .appendField("met html code");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['httphost'] = function(block) {
+  var number_port = block.getFieldValue('port');
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'from http.server import *\ndef runhttpserver(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):\n    server_address = ("", '+number_port+')\n    httpd = server_class(server_address, handler_class)\n    httpd.serve_forever()\ntry: htmlindexfile=open("index.html","w")\nexcept: htmlindexfile=open("index.html","x")\nhtmlindexfile.write('+value_name+')\nhtmlindexfile.close()\nimport os\nos.system(\'start /MIN cmd /c \"timeout 2 /NOBREAK && explorer http://localhost:'+number_port+'/\"\')\nrunhttpserver()\n';
+  return code;
+};
+
+Blockly.Blocks['html_div'] = {
+  init: function() {
+    this.appendValueInput("id")
+        .setCheck(null)
+        .appendField("html-groep met id");
+    this.appendStatementInput("NAME")
+        .setCheck("html");
+    this.setPreviousStatement(true, "html");
+    this.setNextStatement(true, "html");
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['html_div'] = function(block) {
+  var value_id = Blockly.Python.valueToCode(block, 'id', Blockly.Python.ORDER_ATOMIC);
+  var statements_name = Blockly.Python.statementToCode(block, 'NAME');
+  // TODO: Assemble Python into code variable.
+  var code = '<div id="\'\'\'+'+value_id+'+\'\'\'">'+statements_name+'</div>\n';
+  return code;
+};
+
+Blockly.Blocks['javascriptfunctiongroup'] = {
+  init: function() {
+    this.appendStatementInput("NAME")
+        .setCheck(null)
+        .appendField("javascript-groep");
+    this.setInputsInline(false);
+    this.setOutput(true, null);
+    this.setColour(0);
+ this.setTooltip("function(){ > | < };");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['javascriptfunctiongroup'] = function(block) {
+  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'function(){'+statements_name+'}';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['window_onload'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("window.onload =");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(0);
+ this.setTooltip("javascript-codegroep om te laden wanneer pagina klaar is.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['window_onload'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'object.onload = '+value_name+';\n';
+  return code;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
