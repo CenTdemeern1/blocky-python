@@ -1441,6 +1441,11 @@ Blockly.JavaScript['window_onload'] = function(block) {
           toolbox.children.Backpack.innerHTML=localStorage.getItem("blockypythonbackpack")
           workspace.updateToolbox(toolbox)
       }
+      if (localStorage.getItem("blockypythonpcode")!=null){
+          xml_text=localStorage.getItem("blockypythonpcode")
+          var xml_dom = Blockly.Xml.textToDom(xml_text);
+          Blockly.Xml.domToWorkspace(xml_dom, workspace);
+      }
   } else {
       alert("Woah! het ziet er naar uit dat jouw browser geen web storage ondersteunt! update je browser alsjeblieft naar:\nFirefox: 3.5+\nInternet explorer: 8.0+\nGoogle Chrome: 4.0+\nSafari: 4.0+\nOpera: 11.5+\n\nAnders zul je de Backpack-functie niet volledig kunnen gebruiken.")
   }
@@ -1449,7 +1454,10 @@ Blockly.JavaScript['window_onload'] = function(block) {
     document.getElementById('textarea').value = code;
     if (document.getElementById("trautoenable").checked) {
       document.getElementById("trinket").contentWindow.document.getElementsByClassName("ace_text-input")[0].value = code
-    };
+    };                 
+    var xml = Blockly.Xml.workspaceToDom(workspace);
+    var xml_text = Blockly.Xml.domToText(xml);
+    localStorage.setItem("blockypythonpcode", xml_text);
   }
   function onDelete(event) {
     if (event.type == Blockly.Events.BLOCK_DELETE && workspace.toolbox_.lastCategory_.html_.privateDoNotAccessOrElseSafeHtmlWrappedValue_=="Backpack") {
