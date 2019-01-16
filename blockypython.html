@@ -78,7 +78,7 @@ function download(filename, text) {
   </script>
   <button Onclick="deletebackpackpopup()">Backpack legen</button>
 </div>    
-<iframe id="trinket" src="trinket/trinket.html" style="height: 100%; width: 100%;"></iframe>
+<iframe id="trinket" src="/trinket/trinket.html" style="height: 100%; width: 100%;"></iframe>
 <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
   <category name="Logic" colour="#5C81A6">
     <block type="controls_if"></block>
@@ -549,9 +549,15 @@ function download(filename, text) {
         </value>
       </block>
     </category>
+    <category name="pygame">
+      <block type="pygame_init"></block>
+    </category>
     <category name="sys">
       <block type="getoperatingsystem"></block>
       <block type="winver"></block>
+    </category>
+    <category name="turtle">
+    
     </category>
   </category>
   <category name="Session" colour="#BFBF40">
@@ -736,7 +742,7 @@ Blockly.Blocks['import'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("importeer module")
-        .appendField(new Blockly.FieldDropdown([["os","os"], ["sys","sys"], ["numpy","numpy"]]), "module");
+        .appendField(new Blockly.FieldDropdown([["os","os"], ["sys","sys"], ["numpy","numpy"], ["pygame","pygame"], ["turtle","turtle"]]), "module");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -1391,9 +1397,23 @@ Blockly.JavaScript['window_onload'] = function(block) {
   return code;
 };
 
+Blockly.Blocks['pygame_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("initialiseer pygame");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
 
-
-
+Blockly.Python['pygame_init'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'pygame.init()\n';
+  return code;
+};
 
 
 
